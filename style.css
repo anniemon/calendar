@@ -1,0 +1,17 @@
+body {
+  background-image: url("./images/carnaby-gilany-j9zFZSKPMbE-unsplash.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: "Varela Round", sans-serif;
+}
+
+h1 {
+  font-family: "Pacifico", cursive;
+  text-align: center;
+  font-size: 72px;
+}
+
+section > p {
+  text-align: center;
+  font-family: "Consolas";
+}
