@@ -20,3 +20,9 @@ section > p {
 .show-month-year {
   font-size: 1.5rem;
 }
+
+.calendar-body {
+  margin: 5rem;
+  text-align: center;
+  font-weight: bolder;
+}
