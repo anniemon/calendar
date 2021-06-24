@@ -23,6 +23,12 @@ section > p {
 
 .calendar-body {
   margin: 5rem;
-  text-align: center;
   font-weight: bolder;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.today {
+  color: red;
 }
