@@ -24,20 +24,24 @@ function printCurrentDate() {
 
 function printCurrentDatesOfMonth() {
     let dateNumber = 2;
-    // TODO: 현재 월의 1일이 무슨 요일인지 판별하고, 해당 요일 라벨링에 1일 표기하기
     let firstDay = now.getDay() + 1 - currentDate % 7;
-    console.log(firstDay)
     for(let row = 0; row < calendarBody_Rows.length; row++){
         for (let col = 0; col < 7; col++) {
             calendarBody_Rows[0].children[firstDay].textContent = 1;
             if(row === 0 && col > firstDay) {
                 calendarBody_Rows[row].children[col].textContent = dateNumber;
                 dateNumber++;
+                if(calendarBody_Rows[row].children[col].textContent === String(currentDate)){
+                    calendarBody_Rows[row].children[col].classList.add("today");
+                }
             } else if( row > 0) {
                 calendarBody_Rows[row].children[col].textContent = dateNumber;
                 dateNumber++;
                 if(dateNumber > calculateDateNumbers(currentMonth)) {
                     break;
+                }
+                if(calendarBody_Rows[row].children[col].textContent === String(currentDate)){
+                    calendarBody_Rows[row].children[col].classList.add("today");
                 }
             }
         }
