@@ -24,7 +24,8 @@ function printCurrentDate() {
 
 function printCurrentDatesOfMonth() {
     let dateNumber = 2;
-    let firstDay = now.getDay() + 1 - currentDate % 7;
+    let firstDay = now.getDay() + 1 - currentDate % 7 
+    firstDay < 0 ? firstDay += 7 : firstDay;
     for(let row = 0; row < calendarBody_Rows.length; row++){
         for (let col = 0; col < 7; col++) {
             calendarBody_Rows[0].children[firstDay].textContent = 1;
