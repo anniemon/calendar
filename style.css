@@ -3,6 +3,11 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   font-family: "Varela Round", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+  top: 50px;
 }
 
 h1 {
@@ -22,6 +27,7 @@ section > p {
 }
 
 .calendar-body {
+  font-size: large;
   margin: 5rem;
   font-weight: bolder;
   display: flex;
@@ -36,20 +42,17 @@ section > p {
 
 .button-prev,
 .button-next {
-  background-color: transparent;
-  border-left: transparent;
-  border-top: transparent;
-  width: 1rem;
-  height: 1rem;
+  background: none;
+  border: none;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem;
   margin: 1rem;
-  color: red;
-  border-color: darkcyan;
+  color: black;
 }
 
 .button-prev {
-  transform: rotate(135deg);
 }
 
 .button-next {
-  transform: rotate(-45deg);
 }
