@@ -87,12 +87,22 @@ function removecurrentCalenderBody() {
     }
 }
 
+function printPreviousCalendarBody() {
+    const previousDates = new Date(currentYear, currentMonth -= 1)
+    const previousYear = previousDates.getFullYear();
+    const previousFirstDay = DAY_LIST[previousDates.getDay()];
+    const previousMonth = MONTH_LIST[previousDates.getMonth()];
+    printCalendarBody(previousYear, previousDates.getMonth());
+    printSeperateDate(previousFirstDay, previousDates.getDate(), previousMonth, previousYear);
+}
+
 function handleClick(e) {
     if(e.target.classList[0] === 'button-next') {
         removecurrentCalenderBody();
         printNextCalenderBody();
     } else if(e.target.classList[0] === 'button-prev') {
-        
+        removecurrentCalenderBody();
+        printPreviousCalendarBody();
     }
 }
 
