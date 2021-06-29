@@ -43,12 +43,13 @@ function printCalendarBody(currentYear, currentMonth) {
 }
 
 function highlightToday (currentDate) {
-    // if(calendarBody_Rows[row].children[col].textContent === String(currentDate)){
-    //     calendarBody_Rows[row].children[col].classList.add("today");
-    // }
-    // if(calendarBody_Rows[row].children[col].textContent === String(currentDate)){
-    //     calendarBody_Rows[row].children[col].classList.add("today");
-    // }
+    for(let row = 0; row < calendarBody_Rows.length; row++){
+        for (let col = 0; col < 7; col++) {
+            if(calendarBody_Rows[row].children[col].textContent === String(currentDate)){
+                calendarBody_Rows[row].children[col].classList.add("today");
+            }
+        }
+    }
 }
 
 function calculateDateNumbers(month) {
@@ -69,13 +70,14 @@ function calculateDateNumbers(month) {
 }
 
 function printNextCalenderBody() {
-    printCalendarBody(currentYear, currentMonth++);
+    printCalendarBody(currentYear, currentMonth+=1);
 }
 
 function removecurrentCalenderBody() {
     for(let i = 0; i < calendarBody_Rows.length; i ++) {
         for(let j = 0; j < 7; j++) {
             calendarBody_Rows[i].children[j].textContent = '';
+            calendarBody_Rows[i].children[j].classList.remove("today");
         }
     }
 }
@@ -92,6 +94,7 @@ function handleClick(e) {
 function init() {
     printSeperateDate(currentDay, currentDate, MONTH_LIST[now.getMonth()], currentYear);
     printCalendarBody(currentYear, currentMonth);
+    highlightToday(currentDate);
     calendarBtns.forEach((btn) => btn.addEventListener("click", handleClick));
 }
 
