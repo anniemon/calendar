@@ -70,7 +70,12 @@ function calculateDateNumbers(month) {
 }
 
 function printNextCalenderBody() {
-    printCalendarBody(currentYear, currentMonth+=1);
+    const nextDates = new Date(currentYear, currentMonth += 1)
+    const nextYear = nextDates.getFullYear();
+    const nextFirstDay = DAY_LIST[nextDates.getDay()];
+    const nextMonth = MONTH_LIST[nextDates.getMonth()];
+    printCalendarBody(nextYear, nextDates.getMonth());
+    printSeperateDate(nextFirstDay, nextDates.getDate(), nextMonth, nextYear);
 }
 
 function removecurrentCalenderBody() {
