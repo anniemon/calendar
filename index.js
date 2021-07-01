@@ -96,7 +96,7 @@ function printPreviousCalendarBody() {
     printSeperateDate(previousFirstDay, previousDates.getDate(), previousMonth, previousYear);
 }
 
-function handleClick(e) {
+function handleCalendarBtnsClick(e) {
     if(e.target.classList[0] === 'button-next') {
         removecurrentCalenderBody();
         printNextCalenderBody();
@@ -106,11 +106,28 @@ function handleClick(e) {
     }
 }
 
+function addEventListenerToCalendarBodyTexts() {
+    for(let el of calendarBody_Rows) {
+        for(let child of el.children) {
+        child.addEventListener("click", handleCalendarBodyTextsClick);
+        }
+    }
+}
+
+function handleCalendarBodyTextsClick(e) {
+    const date = e.target.textContent;
+    const month = showMonthYear.textContent.split(" ")[0];
+    const year = showMonthYear.textContent.split(" ")[1];
+    const day = DAY_LIST[new Date(year, MONTH_LIST.indexOf(month), date).getDay()];
+    printSeperateDate(day, date, month, year);
+}
+
 function init() {
     printSeperateDate(currentDay, currentDate, MONTH_LIST[now.getMonth()], currentYear);
     printCalendarBody(currentYear, currentMonth);
     highlightToday(currentDate);
-    calendarBtns.forEach((btn) => btn.addEventListener("click", handleClick));
+    calendarBtns.forEach((btn) => btn.addEventListener("click", handleCalendarBtnsClick));
+    addEventListenerToCalendarBodyTexts();
 }
 
 init();
