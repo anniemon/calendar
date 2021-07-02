@@ -24,7 +24,7 @@ function printSeperateDate(day, date, month, year) {
 
 function printCalendarBody(currentYear, currentMonth) {
     let dateNumber = 2;
-    let firstDay = new Date(currentYear, currentMonth).getDay();
+    const firstDay = new Date(currentYear, currentMonth).getDay();
     for(let row = 0; row < calendarBody_Rows.length; row++){
         for (let col = 0; col < 7; col++) {
             calendarBody_Rows[0].children[firstDay].textContent = 1;
@@ -109,17 +109,19 @@ function handleCalendarBtnsClick(e) {
 function addEventListenerToCalendarBodyTexts() {
     for(let el of calendarBody_Rows) {
         for(let child of el.children) {
-        child.addEventListener("click", handleCalendarBodyTextsClick);
+                child.addEventListener("click", handleCalendarBodyTextsClick);
         }
     }
 }
 
 function handleCalendarBodyTextsClick(e) {
+    if(e.target.textContent !== '') {
     const date = e.target.textContent;
     const month = showMonthYear.textContent.split(" ")[0];
     const year = showMonthYear.textContent.split(" ")[1];
     const day = DAY_LIST[new Date(year, MONTH_LIST.indexOf(month), date).getDay()];
     printSeperateDate(day, date, month, year);
+    }
 }
 
 function init() {
