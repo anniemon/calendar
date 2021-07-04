@@ -26,8 +26,8 @@ function printSeperateDate(day, date, month, year) {
 function printCalendarBody(currentYear, currentMonth, firstDay) {
     let dateNumber = 2;
     for(let row = 0; row < calendarBody_Rows.length; row++){
+        calendarBody_Rows[0].children[firstDay].textContent = 1;
         for (let col = 0; col < 7; col++) {
-            calendarBody_Rows[0].children[firstDay].textContent = 1;
             if(row === 0 && col > firstDay) {
                 calendarBody_Rows[row].children[col].textContent = dateNumber;
                 dateNumber++;
@@ -117,6 +117,7 @@ function addEventListenerToCalendarBodyTexts() {
         }
     }
 };
+
 
 function handleCalendarBodyTextsClick(e) {
     if(e.target.textContent !== '') {
