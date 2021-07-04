@@ -4,27 +4,27 @@ const showDay = document.querySelector(".show-day");
 const showDate = document.querySelector(".show-date");
 const showMonthYear = document.querySelector(".show-month-year");
 const calendarBody = document.querySelector("tbody");
-const calendarBody_Rows = calendarBody.children;
+const calendarBody_Rows = calendarBody.rows;
 const calendarBtns = document.querySelectorAll("button");
 
 const DAY_LIST = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT',];
 const MONTH_LIST = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JULY', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
-let currentDate = now.getDate();
+const currentDate = now.getDate();
+const currentDay = DAY_LIST[now.getDay()];
+const currentYear = now.getFullYear();
 let currentMonth = now.getMonth();
-let currentDay = DAY_LIST[now.getDay()];
-let currentYear = now.getFullYear();
+const firstDay = new Date(currentYear, currentMonth).getDay();
 
 
 function printSeperateDate(day, date, month, year) {
     showDay.textContent = day;
     showDate.textContent = date;
     showMonthYear.textContent = `${month} ${year}`;
-}
+};
 
-function printCalendarBody(currentYear, currentMonth) {
+function printCalendarBody(currentYear, currentMonth, firstDay) {
     let dateNumber = 2;
-    const firstDay = new Date(currentYear, currentMonth).getDay();
     for(let row = 0; row < calendarBody_Rows.length; row++){
         for (let col = 0; col < 7; col++) {
             calendarBody_Rows[0].children[firstDay].textContent = 1;
@@ -40,7 +40,7 @@ function printCalendarBody(currentYear, currentMonth) {
             }
         }
     }
-}
+};
 
 function highlightToday (currentDate) {
     for(let row = 0; row < calendarBody_Rows.length; row++){
@@ -50,7 +50,7 @@ function highlightToday (currentDate) {
             }
         }
     }
-}
+};
 
 function calculateDateNumbers(month) {
     switch (month) {
@@ -67,16 +67,17 @@ function calculateDateNumbers(month) {
         break;
     }
     return dateNumber;
-}
+};
 
 function printNextCalenderBody() {
-    const nextDates = new Date(currentYear, currentMonth += 1)
+    const nextDates = new Date(currentYear, currentMonth += 1);
+    const nextFirstDayNum = new Date(currentYear, currentMonth += 1).getDay();
     const nextYear = nextDates.getFullYear();
-    const nextFirstDay = DAY_LIST[nextDates.getDay()];
+    const nextFirstDayStr = DAY_LIST[nextDates.getDay()];
     const nextMonth = MONTH_LIST[nextDates.getMonth()];
-    printCalendarBody(nextYear, nextDates.getMonth());
-    printSeperateDate(nextFirstDay, nextDates.getDate(), nextMonth, nextYear);
-}
+    printCalendarBody(nextYear, nextDates.getMonth(), nextFirstDayNum);
+    printSeperateDate(nextFirstDayStr, nextDates.getDate(), nextMonth, nextYear);
+};
 
 function removecurrentCalenderBody() {
     for(let i = 0; i < calendarBody_Rows.length; i ++) {
@@ -85,16 +86,17 @@ function removecurrentCalenderBody() {
             calendarBody_Rows[i].children[j].classList.remove("today");
         }
     }
-}
+};
 
 function printPreviousCalendarBody() {
-    const previousDates = new Date(currentYear, currentMonth -= 1)
+    const previousDates = new Date(currentYear, currentMonth -= 1);
+    const previousFirstDayNum = new Date(currentYear, currentMonth -= 1).getDay();
     const previousYear = previousDates.getFullYear();
-    const previousFirstDay = DAY_LIST[previousDates.getDay()];
+    const previousFirstDayStr = DAY_LIST[previousDates.getDay()];
     const previousMonth = MONTH_LIST[previousDates.getMonth()];
-    printCalendarBody(previousYear, previousDates.getMonth());
-    printSeperateDate(previousFirstDay, previousDates.getDate(), previousMonth, previousYear);
-}
+    printCalendarBody(previousYear, previousDates.getMonth(), previousFirstDayNum);
+    printSeperateDate(previousFirstDayStr, previousDates.getDate(), previousMonth, previousYear);
+};
 
 function handleCalendarBtnsClick(e) {
     if(e.target.classList[0] === 'button-next') {
@@ -104,15 +106,17 @@ function handleCalendarBtnsClick(e) {
         removecurrentCalenderBody();
         printPreviousCalendarBody();
     }
-}
+};
 
 function addEventListenerToCalendarBodyTexts() {
     for(let el of calendarBody_Rows) {
         for(let child of el.children) {
+            if(child.textContent !== '') {
                 child.addEventListener("click", handleCalendarBodyTextsClick);
+            }
         }
     }
-}
+};
 
 function handleCalendarBodyTextsClick(e) {
     if(e.target.textContent !== '') {
@@ -122,14 +126,14 @@ function handleCalendarBodyTextsClick(e) {
     const day = DAY_LIST[new Date(year, MONTH_LIST.indexOf(month), date).getDay()];
     printSeperateDate(day, date, month, year);
     }
-}
+};
 
 function init() {
     printSeperateDate(currentDay, currentDate, MONTH_LIST[now.getMonth()], currentYear);
-    printCalendarBody(currentYear, currentMonth);
+    printCalendarBody(currentYear, currentMonth, firstDay);
     highlightToday(currentDate);
     calendarBtns.forEach((btn) => btn.addEventListener("click", handleCalendarBtnsClick));
     addEventListenerToCalendarBodyTexts();
-}
+};
 
 init();
